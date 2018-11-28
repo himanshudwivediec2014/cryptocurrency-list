@@ -1,0 +1,68 @@
+.container-fluid{
+    height: 100vh;
+    width: 100vw;
+    background-color: lightblue;
+}
+
+button{
+    margin-bottom: 1vh;
+}
+
+#wrapper{
+    width: 80vw;
+    height: 80vh;
+    margin-left: 10vw;
+}
+
+#graphContainer{
+    margin-top: 5vh;
+    margin-bottom: 8vh;
+}
+
+@media only screen and (max-width: 300px) {
+    #wrapper{
+        width: 94vw;
+         height: 79vh;
+         margin-left: -2vw;
+     }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 449px) {
+    #wrapper{
+        width: 94vw;
+         height: 79vh;
+         margin-left: -2vw;
+     }
+}
+
+@media only screen and (min-width: 450px) and (max-width: 575px) {
+    #wrapper{
+        width: 96vw;
+         height: 79vh;
+         margin-left: -1vw;
+     }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+    #wrapper{
+        width: 98vw;
+         height: 79vh;
+         margin-left: 0;
+     }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    #wrapper{
+        width: 97vw;
+        height: 79vh;
+        margin-left: 1vw;
+    }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    #wrapper{
+        width: 94vw;
+         height: 79vh;
+         margin-left: 4vw;
+     }
+}

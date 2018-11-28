@@ -1,0 +1,54 @@
+/* body{
+  margin: 0;
+  padding: 0;
+} */
+div.container-fluid{
+  background-color:  blanchedalmond;
+  height: 100vh;
+}
+
+.divContainer{
+  margin-bottom:7vh;/*  
+  background-color:antiquewhite;  */
+  width: 98%; 
+  margin-left: 1vw; 
+  border-radius: 5px;
+  transition: 1s all linear;
+}
+
+.divContainer:hover{
+  margin-bottom:7vh;/*  
+  background-color:antiquewhite;  */
+  width: 98%; 
+  margin-left: 1vw;
+}
+table {
+  margin-top: 3vh;
+    width: 100%;/* 
+    background: transparent; */
+  } 
+  tr{
+    transition: 0.2s all linear;
+  } 
+  tr:hover{
+    background-color: lightyellow;
+  }
+
+  .favourites{
+    font-size: 28px;
+    cursor: pointer;
+    transition: all 0.1s linear;
+  }
+
+  .favourites:hover{
+    color: crimson;
+  }
+  
+  .price{
+    font-size: 32px;
+    cursor: pointer;
+    transition: all 0.1s linear;
+  }
+  .price:hover{
+    color: lightcoral;
+  }

@@ -1,0 +1,48 @@
+.container-fluid{
+    height: 100vh;
+    width: 100vw;
+}
+
+#graphContainer{
+    margin-top: 5vh;
+    margin-bottom: 8vh;
+}
+
+#wrapper{
+    width: 80vw;
+    height: 80vh;
+    margin-left: 1vw;
+}
+
+@media only screen and (min-width: 301px) and (max-width: 450px){
+    #wrapper{
+        width: 85vw;
+         height: 80vh;
+     }
+
+     #canvas{
+        margin-left: -4vw; 
+    }
+}
+
+@media only screen and (min-width: 451px) and (max-width: 575px) {
+   #wrapper{
+       width: 87vw;
+        height: 80vh;
+    }
+
+    #canvas{
+        margin-left: -4vw; 
+    }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px){
+    #wrapper{
+        width: 88vw;
+         height: 80vh;
+     }
+
+     #canvas{
+        margin-left: -4vw; 
+    }
+}
