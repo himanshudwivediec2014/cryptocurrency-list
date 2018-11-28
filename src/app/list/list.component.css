@@ -1,31 +1,27 @@
-/* body{
-  margin: 0;
-  padding: 0;
-} */
 div.container-fluid{
-  background-color:  blanchedalmond;
-  height: 100vh;
+  background-color:  lightcyan;
+  height: 100%;
 }
 
 .divContainer{
-  margin-bottom:7vh;/*  
-  background-color:antiquewhite;  */
+  margin-bottom:7vh;
   width: 98%; 
   margin-left: 1vw; 
-  border-radius: 5px;
-  transition: 1s all linear;
+  border-radius: 10px;
 }
 
-.divContainer:hover{
-  margin-bottom:7vh;/*  
-  background-color:antiquewhite;  */
+.divFav{
   width: 98%; 
-  margin-left: 1vw;
+  height: 100vh;
+  margin-left: 1vw; 
+  margin-bottom:7vh;
+  border-radius: 10px;
 }
+
 table {
   margin-top: 3vh;
-    width: 100%;/* 
-    background: transparent; */
+    width: 100%;
+    background: transparent;
   } 
   tr{
     transition: 0.2s all linear;
@@ -52,3 +48,39 @@ table {
   .price:hover{
     color: lightcoral;
   }
+
+@media only screen and (max-width: 499px){
+  .mat-column-symbol{
+    display: none;
+  }
+
+  .mat-column-select{
+    font-size: 11px;
+  }
+
+  .mat-column-name{
+    font-size: 11px;
+  }
+
+  .mat-column-price{
+    font-size: 11px;
+  }
+
+  .mat-column-market_cap{
+    font-size: 11px;
+  }
+
+  .favourites{
+    font-size: 20px;
+  }
+
+  .price{
+    font-size: 24px;
+  }
+}
+
+@media only screen and (min-width: 500px) and (max-width: 576px){
+  .mat-column-symbol{
+    display: none;
+  }
+}

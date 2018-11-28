@@ -293,9 +293,9 @@ export class ListComponent implements OnInit {
     translate: (value: number, label: LabelType): string => {
       switch (label) {
         case LabelType.Low:
-          return '<b>Min MktCap:</b> ' + value;
+          return '<b>Min Cap:</b> ' + value;
         case LabelType.High:
-          return '<b>Max MktCap:</b> ' + value;
+          return '<b>Max Cap:</b> ' + value;
         default:
           return '$' + value;
       }
