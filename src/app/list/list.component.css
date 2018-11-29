@@ -1,5 +1,5 @@
-div.container-fluid{
-  background-color:  lightcyan;
+.container-fluid{
+  background-color:  honeydew;
   height: 100%;
 }
 
@@ -30,6 +30,16 @@ table {
     background-color: lightyellow;
   }
 
+ #paginator{
+  background: transparent;
+  border-radius: 10px;
+  transition: 0.2s all linear;
+ }
+ 
+ #paginator:hover{
+  background-color: lightyellow;
+ }
+
   .favourites{
     font-size: 28px;
     cursor: pointer;
@@ -50,6 +60,18 @@ table {
   }
 
 @media only screen and (max-width: 499px){
+  .divContainer{
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .divFav{
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+
   .mat-column-symbol{
     display: none;
   }

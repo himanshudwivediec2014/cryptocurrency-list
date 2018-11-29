@@ -39,7 +39,7 @@ a{
     font-size: 1.2rem;
     color: white;
     border: 1px solid white;
-    border-radius: 10px;
+    border-radius: 5px;
     background: brown;
     transition: 0.5s all;
 }
@@ -48,4 +48,5 @@ a:hover{
     color: brown;
     background: white;
     border-color: brown;
+    border-radius: 10px;
 }

@@ -4,18 +4,21 @@
   <div class="row">
     <div class="col">
       <div class="row justify-content-center">
-        <div class="col-sm-10 col-md-6" *ngIf="shouldEnter">
+
+        <div class="col-sm-10 col-md-5" *ngIf="shouldEnter">
           <ng5-slider [(value)]="minPriceValue" [(highValue)]="maxPriceValue" [options]="optionsPrice" (userChangeEnd)="onUserChangePrice($event)"
             style="margin-bottom: 10vh; margin-top: 10vh;"></ng5-slider>
         </div>
 
-        <div class="col-sm-10 col-md-6">
+        <div class="col-sm-10 col-md-5">
           <ng5-slider [(value)]="minMktCapValue" [(highValue)]="maxMktCapValue" [options]="optionsMktCap"
             (userChangeEnd)="onUserChangeMktCap($event)" style="margin-bottom: 10vh; margin-top: 10vh;"></ng5-slider>
         </div>
+
         <div class="col-sm-12 d-flex justify-content-center">
-          <button routerLink="/compare" mat-raised-button class="btn btn-success" *ngIf="visible" (click)="goToCompView()">Compare</button>
+          <button routerLink="/compare" mat-raised-button class="btn btn-success" *ngIf="visible" [disabled]="ifDisabled" (click)="goToCompView()">Compare</button>
         </div>
+        
       </div>
       <div class="row">
         <div class="col">
@@ -69,7 +72,7 @@
                   <tr mat-header-row *matHeaderRowDef="displayedColumns" color="primary"></tr>
                   <tr mat-row *matRowDef="let currency; columns:displayedColumns;"></tr>
                 </table>
-                <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
+                <mat-paginator id="paginator" [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
               </div>
             </mat-tab>
             <mat-tab label="Favourites" *ngIf="checkFav">
@@ -112,8 +115,7 @@
 
                   <tr mat-header-row *matHeaderRowDef="displayedFavColumns" color="primary"></tr>
                   <tr mat-row *matRowDef="let currency; columns:displayedFavColumns;"></tr>
-                </table>
-                <!--  <mat-paginator [pageSizeOptions]="[5, 10, 20, 100]" showFirstLastButtons style="background: transparent;"></mat-paginator> -->
+                </table>                
               </div>
             </mat-tab>
           </mat-tab-group>
@@ -121,7 +123,7 @@
       </div>
       <div class="row" style="margin-bottom: 4vh;">
         <div class="col-sm d-flex justify-content-center">
-            <button routerLink="/Home" mat-raised-button class="btn btn-danger" style="width: 100px; height: 40px;">Home</button>
+            <button routerLink="/Home" mat-raised-button class="btn btn-info" style="width: 100px; height: 40px;">Home</button>
         </div>
       </div>
     </div>

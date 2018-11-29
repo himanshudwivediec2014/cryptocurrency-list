@@ -5,7 +5,7 @@ import { AppHttpService } from '../app-http.service';
 import { Observable } from 'rxjs';
 
 
-import {DataSource} from '@angular/cdk/collections';
+import { DataSource } from '@angular/cdk/collections';
 import { MatSort, MatTableDataSource, MatPaginator, MatSnackBar } from '@angular/material';
 
 import { ToastrManager } from 'ng6-toastr-notifications';
@@ -34,33 +34,29 @@ export class ListComponent implements OnInit {
 
   public dataSource;
   public displayedColumns = ['name', 'symbol', 'price', 'market_cap', 'favourites', 'priceChart'];
-  public displayedFavColumns = ['name', 'symbol', 'price', 'market_cap', 'remove',  'priceChart']
+  public displayedFavColumns = ['name', 'symbol', 'price', 'market_cap', 'remove', 'priceChart']
   public favColumns: boolean = false;
-  public favDataSource:any;
-
+  public favDataSource: any;
   public dataArray = [];
   public selection;
-
-  /* */
   public visible = false;
-
   public asc: boolean = true;
   public sorted: boolean = false//for sorted or not
   public holderArray: number[] = [];
   public dataSourceArray: any = [];
-
   public ascMkt: boolean = true;
   public sortedMkt: boolean = false//for sorted or not
-
   /** */
-  public favList:any;
-  public checkFav=false;
+  public favList: any;
+  public checkFav = false;
+  public checked: any = [];
+  public ifDisabled = true;
 
-  constructor(private appHttpService: AppHttpService, 
-    private spinner: SpinnerVisibilityService, 
+  constructor(private appHttpService: AppHttpService,
+    private spinner: SpinnerVisibilityService,
     public snackBar: MatSnackBar,
     private toastr: ToastrManager,
-    private _route:ActivatedRoute,
+    private _route: ActivatedRoute,
     private router: Router) {
     spinner.show();
     spinner.hide();
@@ -69,29 +65,38 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     this.getAllCurrencies();
     this.getFavView();
-    
   }
 
   /**Method for default Favourites View */
-  public getFavView(){
+  public getFavView() {
     this.favList = this.appHttpService.getFavListFromLocalStorage();
-    /**Null Case Resolve Karna Hai */
-    console.log(this.favList.length===0);
 
-    if(this.favList.length > 0){
-      this.favDataSource = new MatTableDataSource(this.favList);  
-      this.checkFav=true;
+    if (this.favList != null) {
+      if (this.favList.length != 0) {
+        this.favDataSource = new MatTableDataSource(this.favList);
 
+        this.checkFav = true;
+
+        this.dataSource = new MatTableDataSource(this.dataArray);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.selection = new SelectionModel(true, []);
+      } else if (this.favList.length === 0) {
+        this.favList = null;
+        this.appHttpService.setFavListInLocalStorage(this.favList);
+
+        this.checkFav = false;
+        this.dataSource = new MatTableDataSource(this.dataArray);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.selection = new SelectionModel(true, []);
+      }
+    } else {
+      this.checkFav = false;
       this.dataSource = new MatTableDataSource(this.dataArray);
       this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.selection = new SelectionModel(true, []);
-    }else{
-      this.checkFav=false;
-      this.dataSource = new MatTableDataSource(this.dataArray);
-      this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.selection = new SelectionModel(true, []);
+      this.dataSource.paginator = this.paginator;
+      this.selection = new SelectionModel(true, []);
     }
   }
 
@@ -109,8 +114,14 @@ export class ListComponent implements OnInit {
         },
         error => {
           console.log(error);
-        }
-      )
+          setTimeout(()=>{
+            this.toastr.errorToastr("Some Error Occured!", "Oops!",{
+              position: 'top-right',
+              toastTimeout: 1000
+            });
+            this.router.navigate(['/home']);
+          }, 1000);
+        })
   }
 
   /* Assigning dataSource, mat-sort, mat-paginator, selection */
@@ -270,14 +281,12 @@ export class ListComponent implements OnInit {
 
   onUserChangePrice(changeContext: ChangeContext): void {
     this.sliderArray = [];
-    console.log(changeContext.value + " and " + changeContext.highValue);
 
     for (let x in this.dataArray) {
       if (this.dataArray[x].quotes.USD.price >= changeContext.value && this.dataArray[x].quotes.USD.price <= changeContext.highValue) {
         this.sliderArray.push(this.dataArray[x]);
       }
     }
-    console.log(this.sliderArray);
     this.dataSource = new MatTableDataSource(this.sliderArray);
     this.assignTableStructure();
   }
@@ -309,156 +318,117 @@ export class ListComponent implements OnInit {
         this.sliderArray.push(this.dataArray[x]);
       }
     }
-    console.log(this.sliderArray);
     this.dataSource = new MatTableDataSource(this.sliderArray);
     this.assignTableStructure();
   }
   // Market_Cap Slider ends
 
 
-  // onChecked for Graph Views
-  public checked: any = [];
-  public disable: boolean = true;
-  /* public checkedLimit: boolean = false; */
-  
+  // onChecked for Comparison Graph View  
   public selectedCurrency(event, row) {
-    if((this.checked.length === 0) && event.checked){
+    if ((this.checked.length === 0) && event.checked) {
       this.checked.push(row);
-      console.log(this.checked);
-    }else if((this.checked.length >= 1) && !event.checked){
-      for(let x in this.checked){
-        if(this.checked[x].id === row.id){
+    } else if ((this.checked.length >= 1) && !event.checked) {
+      for (let x in this.checked) {
+        if (this.checked[x].id === row.id) {
           let i = this.checked.indexOf(row);
-          if(i > -1){
+          if (i > -1) {
             this.checked.splice(i, 1);
           }
-          console.log(this.checked);
         }
-      }     
-    }else if((this.checked.length > 0) && event.checked){
-      if(this.checked.length < 2){
-        this.checked.push(row);
-        console.log(this.checked);
-      }else if(this.checked.length >= 2){        
+      }
+      this.checkIfDisabled(this.checked);
+    } else if ((this.checked.length > 0) && event.checked) {
+      this.checked.push(row);
+
+      if (this.checked.length > 2) {
         let msg = "For Comparison, Please select only two currencies";
         this.openSnackBar(msg);
-      }      
+      }
+
+      this.checkIfDisabled(this.checked);
     }
   }
-  public openSnackBar:any = (message) => {
+
+  public checkIfDisabled(arr) {
+    if (arr.length === 2) {
+      this.ifDisabled = false;
+    } else {
+      this.ifDisabled = true;
+    }
+  }
+
+  public openSnackBar: any = (message) => {
     this.snackBar.open(message, "Close", {
       duration: 4000,
     });
-  }  
+  }
   // onChecked methods end
 
 
-  //AdddFavourites Method
-  public selected:boolean = false;
-  public favouritesArray:any = [];
-
-  add(event, currency) {
-    console.log(currency); 
-    if((this.favouritesArray.length === 0) && (this.selected===false)){  //!this.selected
-      event.target.classList.add("favouritesAdded");
-      this.favouritesArray.push(currency);
-      console.log(`${currency.name} is added`);
-      this.selected = true; //selected = true
-    }else if((this.favouritesArray.length >=1) && (this.selected===true)){
-      for(let x in this.favouritesArray){
-        if(currency.id === this.favouritesArray[x].id){
-          event.target.classList.remove("favouritesAdded");
-          let i =  this.favouritesArray.indexOf(currency);
-          if(i > -1){
-            this.favouritesArray.splice(i, 1);
-          }
-          console.log(`${currency.name} is removed`);
-        }/* else{
-          this.selected = false;
-        } */
-      }
-      
-    }else if((this.favouritesArray.length >=1) && (this.selected===false)){
-      event.target.classList.add("favouritesAdded");
-      this.favouritesArray.push(currency);
-      console.log(`${currency.name} is added`);
-      this.selected = true; //selected = true
-    }
-    console.log(this.favouritesArray);
-  }
-
-  public currHolder = [];
-  public addToFavourites = (currency)=>{
-    if(this.currHolder.length === 0){
-      this.currHolder.push(currency);
-      
-      console.log(`${currency.name} is added`);
-    }else if(this.currHolder.length > 0){
-        let index = this.currHolder.indexOf(currency);
-        if(index > -1){
-          console.log(`${currency.name} is already in there`);
-        } else{
-          this.currHolder.push(currency);
-          console.log(`${currency.name} is added`);
-        }
-    }
-    console.log(this.currHolder);
-    this.checkForDuplicates(this.currHolder);
-  }
-
-  public checkForDuplicates(holder){
-    let check;
-    if(this.appHttpService.getFavListFromLocalStorage() != null){
+  /**Method for Adding to Favourites*/
+  public addToFavourites(currency) {
+    let check = [];
+    if (this.appHttpService.getFavListFromLocalStorage() != null) {
       check = this.appHttpService.getFavListFromLocalStorage();
-      
-      for(let x in holder){
-        let index = check.findIndex(elem => elem.name === holder[x].name)
-        if(index === -1){                    
-          check.push(holder[x]);
-          this.appHttpService.setFavListInLocalStorage(check);
-          this.toastr.successToastr(`${holder[x].name} added to favourites!`, "Success!", {
-            position: 'top-center',
-            toastTimeout: 1000      
-          });
-        }else if(index >= 0){
-          this.toastr.warningToastr(`${holder[x].name} is already in the favourites!`, "Wait!",{
-            position: 'top-center',
-            toastTimeout: 1000  
-          });
-        }
+
+      let index = check.findIndex(elem => elem.name === currency.name)
+      if (index === -1) {
+        check.push(currency);
+        this.appHttpService.setFavListInLocalStorage(check);
+        this.toastr.successToastr(`${currency.name} added to favourites!`, "Success!", {
+          position: 'top-center',
+          toastTimeout: 1000
+        });
+      } else if (index >= 0) {
+        this.toastr.warningToastr(`${currency.name} is already in the favourites!`, "Wait!", {
+          position: 'top-center',
+          toastTimeout: 1000
+        });
       }
-    }else{
-      this.appHttpService.setFavListInLocalStorage(holder);
-      this.toastr.successToastr(`${holder[0].name} added to favourites!`, "Success!", {
+    } else {
+      check.push(currency);
+      this.appHttpService.setFavListInLocalStorage(check);
+      this.toastr.successToastr(`${currency.name} added to favourites!`, "Success!", {
         position: 'top-center',
-        toastTimeout: 1000      
+        toastTimeout: 1000
       });
-    }    
+    }
   }
 
-
-  public removeFromFavourites(currency){
+  /**Method to remove from favourites */
+  public removeFromFavourites(currency) {
     let check = this.appHttpService.getFavListFromLocalStorage();
 
     let index = check.findIndex(elem => elem.id === currency.id);
-    if(index > -1){
+    if (index > -1) {
       check.splice(index, 1);
     }
     this.toastr.errorToastr(`${currency.name} is removed from favourites`, "", {
       position: 'top-center',
-      toastTimeout: 1000  
+      toastTimeout: 1000
     });
-    this.appHttpService.setFavListInLocalStorage(check);
-    console.log(check);
+
+    this.ifCheckNull(check);
   }
 
-  /**Price Chart Route */
-  public goToChartView(id){
-    this.router.navigate(['/price'], {queryParams: {arg:id}});
+  /**Check if the "check" array is empty or not, and make it null if it has become empty */
+  public ifCheckNull(arr) {
+    if (arr.length === 0) {
+      arr = null;
+      this.appHttpService.setFavListInLocalStorage(arr);
+    } else {
+      this.appHttpService.setFavListInLocalStorage(arr);
+    }
   }
 
-  /**Comparison Chart View */
-  public goToCompView(){
-    this.router.navigate(['/compare'], {queryParams: {arg1: this.checked[0].id, arg2: this.checked[1].id}});
+  /**Price Chart View Route */
+  public goToChartView(id) {
+    this.router.navigate(['/price'], { queryParams: { arg: id } });
+  }
+
+  /**Comparison Chart View Route*/
+  public goToCompView() {
+    this.router.navigate(['/compare'], { queryParams: { arg1: this.checked[0].id, arg2: this.checked[1].id } });
   }
 }
