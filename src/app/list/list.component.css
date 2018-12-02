@@ -60,7 +60,7 @@ table {
   }
 
 @media only screen and (max-width: 499px){
-  .divContainer{
+  /* .divContainer{
     width: 100%;
     margin: 0;
     border-radius: 0;
@@ -70,7 +70,7 @@ table {
     width: 100%;
     margin: 0;
     border-radius: 0;
-  }
+  } */
 
   .mat-column-symbol{
     display: none;

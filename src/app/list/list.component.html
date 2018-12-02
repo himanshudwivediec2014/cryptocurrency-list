@@ -5,7 +5,7 @@
     <div class="col">
       <div class="row justify-content-center">
 
-        <div class="col-sm-10 col-md-5" *ngIf="shouldEnter">
+        <div class="col-sm-10 col-md-5">
           <ng5-slider [(value)]="minPriceValue" [(highValue)]="maxPriceValue" [options]="optionsPrice" (userChangeEnd)="onUserChangePrice($event)"
             style="margin-bottom: 10vh; margin-top: 10vh;"></ng5-slider>
         </div>
