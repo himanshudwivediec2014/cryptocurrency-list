@@ -72,7 +72,7 @@
                   <tr mat-header-row *matHeaderRowDef="displayedColumns" color="primary"></tr>
                   <tr mat-row *matRowDef="let currency; columns:displayedColumns;"></tr>
                 </table>
-                <mat-paginator id="paginator" [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
+                <mat-paginator id="paginator" [pageSizeOptions]="[5, 10, 20, 100]" showFirstLastButtons></mat-paginator>
               </div>
             </mat-tab>
             <mat-tab label="Favourites" *ngIf="checkFav">

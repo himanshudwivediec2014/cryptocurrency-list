@@ -60,7 +60,7 @@ table {
   }
 
 @media only screen and (max-width: 499px){
-  /* .divContainer{
+  .divContainer{
     width: 100%;
     margin: 0;
     border-radius: 0;
@@ -70,34 +70,46 @@ table {
     width: 100%;
     margin: 0;
     border-radius: 0;
-  } */
+  }
 
   .mat-column-symbol{
     display: none;
   }
 
   .mat-column-select{
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .mat-column-name{
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .mat-column-price{
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .mat-column-market_cap{
-    font-size: 11px;
+    font-size: 10px;
+  }
+
+  .mat-column-favourites{
+    font-size: 10px;
   }
 
   .favourites{
     font-size: 20px;
   }
 
+  .mat-column-priceChart{
+    font-size: 10px;
+  }
+
   .price{
     font-size: 24px;
+  }
+
+  .mat-column-remove{
+    font-size: 10px;
   }
 }
 
