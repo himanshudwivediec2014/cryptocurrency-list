@@ -28,7 +28,7 @@
 @media only screen and (min-width: 451px) and (max-width: 575px) {
    #wrapper{
        width: 87vw;
-        height: 80vh;
+        height: 80.4vh;
     }
 
     #canvas{
@@ -39,7 +39,7 @@
 @media only screen and (min-width: 576px) and (max-width: 767px){
     #wrapper{
         width: 88vw;
-         height: 80vh;
+         height: 80.4vh;
      }
 
      #canvas{

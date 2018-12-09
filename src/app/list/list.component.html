@@ -22,7 +22,7 @@
       </div>
       <div class="row">
         <div class="col">
-          <mat-tab-group>
+          <mat-tab-group style="height: 80vh;">
             <mat-tab label="All">
               <div class="mat-elevation-z8 divContainer">
                 <table mat-table [dataSource]="dataSource" matSort color="primary" (press)="onPress($event)">
@@ -121,6 +121,9 @@
           </mat-tab-group>
         </div>
       </div>
+      <div class="alert alert-info text-center" role="alert" style="margin-top: 10px;">
+          Long press anywhere on the table and try selecting any two currencies for Comparison!
+        </div>
       <div class="row" style="margin-bottom: 4vh;">
         <div class="col-sm d-flex justify-content-center">
             <button routerLink="/Home" mat-raised-button class="btn btn-info" style="width: 100px; height: 40px;">Home</button>

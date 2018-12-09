@@ -20,7 +20,7 @@ p{
     font-size: 1.8rem;
     font-weight: bold;
     margin-top: 20px;
-    color: darkgrey;
+    color: #F0E68C;
 }
 
 a#learn{
@@ -63,7 +63,7 @@ ul li a{
     background-color: #262626;
     border-radius: 50%;
     line-height: 40px;
-    transition: 0.8s all;
+    transition: 1s all;
 }
 
 ul li:nth-child(1) a{
@@ -79,9 +79,20 @@ ul li:nth-child(3) a{
 }
 
 ul li:nth-child(4) a{
-    background: #e4405f;
+    background: #fb3958;
 }
 
 ul li a:hover{
     transform: rotate(360deg);
+}
+
+
+@media only screen and (max-width: 400px){
+    h1{
+        font-size: 3rem;
+    }
+
+    p{
+        font-size: 1.3rem;
+    }
 }
